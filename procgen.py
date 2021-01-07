@@ -91,6 +91,7 @@ def generate_dungeon(
         # If there are no intersections then the room is valid.
 
         # Dig out this rooms inner area.
+        floor_type = random.randint(1,2)
         dungeon.tiles[new_room.inner] = tile_types.floor
 
         if len(rooms) == 0:
