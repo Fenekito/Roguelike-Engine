@@ -53,7 +53,9 @@ def place_entities(
         y = random.randint(room.y1 + 1, room.y2 - 1)
 
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
-            if random.random() < 0.7:
+            if random.random() < 0.5:
+                entities_factory.jackal.spawn(dungeon, x, y)
+            if random.random() < 0.9:
                 entities_factory.grunt.spawn(dungeon, x, y)
             else:
                 entities_factory.elite.spawn(dungeon, x, y)

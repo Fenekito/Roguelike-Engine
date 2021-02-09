@@ -1,18 +1,18 @@
 import copy
 
 import tcod
+import color
 
 from engine import Engine
 import entities_factory
 from procgen import generate_dungeon
-
 
 def main() -> None:
     screen_width = 80
     screen_height = 50
 
     map_width = 80
-    map_height = 45
+    map_height = 43
 
     room_max_size = 20
     room_min_size = 6
@@ -38,20 +38,24 @@ def main() -> None:
         engine=engine,
     )
     engine.update_fov()
+    engine.message_log.add_message(
+        "You got separated from your squadron marine, you must fight your way through the covenant", color.welcome_text
+    )
 
     with tcod.context.new_terminal(
         screen_width,
         screen_height,
         tileset=tileset,
-        title="Halo The Roguelike",
+        title="Halo Combat Devolved",
         vsync=True,
     ) as context:
         root_console = tcod.Console(screen_width, screen_height, order="F")
         while True:
-            engine.render(console=root_console, context=context)
+            root_console.clear()
+            engine.event_handler.on_render(console=root_console)
+            context.present(root_console)
 
-            engine.event_handler.handle_events()
-
+            engine.event_handler.handle_events(context)
 
 if __name__ == "__main__":
     main()
