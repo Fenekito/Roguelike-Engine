@@ -20,6 +20,7 @@ def get_names_at_location(x: int, y: int, game_map: GameMap) -> str:
 
     return names.capitalize()
 
+
 def render_bar(
     console: Console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
@@ -36,8 +37,9 @@ def render_bar(
         x=1, y=45, string=f"HP: {current_value}/{maximum_value}", fg=color.bar_text
     )
 
+
 def render_names_at_mouse_location(
-        console: Console, x: int, y: int, engine: Engine
+    console: Console, x: int, y: int, engine: Engine
 ) -> None:
     mouse_x, mouse_y = engine.mouse_location
 
