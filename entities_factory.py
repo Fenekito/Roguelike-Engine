@@ -34,7 +34,7 @@ mastermind = Actor(
     color=(78, 81, 255),
     name="Mastermind",
     ai_cls=HostileEnemy,
-    fighter=Fighter(hp=33, defense=4, power=8),
+    fighter=Fighter(hp=66, defense=12, power=22),
     inventory = Inventory(capacity=0),
 )
 minormind = Actor(
@@ -42,7 +42,7 @@ minormind = Actor(
     color=(0,255,255),
     name="Minormind",
     ai_cls=HostileEnemy,
-    fighter=Fighter(hp=40, defense=6, power=16),
+    fighter=Fighter(hp=44, defense=6, power=16),
     inventory=Inventory(capacity=0),
 )
 jockster = Actor(
