@@ -5,6 +5,7 @@ from typing import Optional, Tuple, TYPE_CHECKING
 import color
 import exceptions
 from pygame import mixer
+import random
 
 mixer.init()
 footstep = mixer.Sound('stepdirt_1.wav')
@@ -83,18 +84,48 @@ class ItemAction(Action):
 
     def perform(self) -> None:
         """Invoke the items ability, this action will be given to provide context."""
-        self.item.consumable.activate(self)
+        if self.item.consumable:
+            self.item.consumable.activate(self)
 
 
 class DropItem(ItemAction):
     def perform(self) -> None:
+        if self.entity.equipment.item_is_equipped(self.item):
+            self.entity.equipment.toggle_equip(self.item)
+
         self.entity.inventory.drop(self.item)
+
+class EquipAction(Action):
+    def __init__(self, entity: Actor, item: Item):
+        super().__init__(entity)
+
+        self.item = item
+
+    def perform(self) -> None:
+        self.entity.equipment.toggle_equip(self.item)
 
 
 class WaitAction(Action):
     def perform(self) -> None:
         pass
 
+class TakeStairsAction(Action):
+    def perform(self) -> None:
+        """
+        Take the stairs, if any exist at the entity's location.
+        """
+        if (self.entity.x, self.entity.y) == self.engine.game_map.downstairs_location:
+            self.engine.game_world.generate_floor()
+            if random.random() <0.5:
+                self.engine.message_log.add_message(
+                "You descend the staircase, you're filled with hope.", color.descend
+                )
+            else:
+                self.engine.message_log.add_message(
+                    "You descend the staircase, you feel a chill on your spine"
+                )
+        else:
+            raise exceptions.Impossible("There are no stairs here.")
 
 class ActionWithDirection(Action):
     def __init__(self, entity: Actor, dx: int, dy: int):
@@ -144,8 +175,9 @@ class MeleeAction(ActionWithDirection):
             mixer.Channel(1).play(mixer.Sound(attack))
         else:
             self.engine.message_log.add_message(
-                f"{attack_desc} but does no damage.", attack_color
+                f"{attack_desc} but barely damages him.", attack_color
             )
+            target.fighter.hp -= 1
             mixer.Channel(2).play(mixer.Sound(miss))
 
 

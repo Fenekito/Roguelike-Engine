@@ -45,3 +45,24 @@ wall = new_tile(
     dark=(ord(" "), (255,255,255), (31,31,31)),
     light=(ord(" "), (255,255,255), (76,79,76)),
 )
+
+wall2 = new_tile(
+    walkable=False,
+    transparent=False,
+    dark=(ord(" "), (255,255,255), (222,161,82)),
+    light=(ord(" "), (255,255,255), (255,185,95)),
+)
+
+floor2 = new_tile(
+    walkable=True,
+    transparent=True,
+    dark=(ord(" "), (255, 255, 255), (209, 219, 222)),
+    light=(ord(" "), (255, 255, 255), (238, 251, 254)),
+)
+
+down_stairs = new_tile(
+    walkable=True,
+    transparent=True,
+    dark=(ord(">"), (0, 0, 100), (50, 50, 150)),
+    light=(ord(">"), (255, 255, 255), (200, 180, 50)),
+)

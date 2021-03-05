@@ -46,7 +46,6 @@ class HealingConsumable(Consumable):
     def activate(self, action: actions.ItemAction) -> None:
         consumer = action.entity
         amount_recovered = consumer.fighter.heal(self.amount)
-
         if amount_recovered > 0:
             self.engine.message_log.add_message(
                 f"You consume the {self.parent.name}, and recover {amount_recovered} HP!",

@@ -28,7 +28,7 @@ def main() -> None:
         screen_width,
         screen_height,
         tileset=tileset,
-        title="Fenekito's Roguelike",
+        title="Under Desolation",
         vsync=True,
     ) as context:
         root_console = tcod.Console(screen_width, screen_height, order="F")
@@ -37,7 +37,6 @@ def main() -> None:
                 root_console.clear()
                 handler.on_render(console=root_console)
                 context.present(root_console)
-
                 try:
                     for event in tcod.event.wait():
                         context.convert_event(event)
@@ -52,10 +51,10 @@ def main() -> None:
         except exceptions.QuitWithoutSaving:
             raise
         except SystemExit:  # Save and quit.
-            save_game(handler, "savegame.yfsav")
+            save_game(handler, "savegame.udsav")
             raise
         except BaseException:  # Save on any other unexpected exception.
-            save_game(handler, "savegame.yfsavs")
+            save_game(handler, "savegame.udsav")
             raise
 
 if __name__ == "__main__":
