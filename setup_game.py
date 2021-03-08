@@ -68,9 +68,6 @@ def load_game(filename: str) -> Engine:
     with open(filename, "rb") as f:
         engine = pickle.loads(lzma.decompress(f.read()))
 
-    mixer.music.load('Desolate Hallways.mp3')
-    mixer.music.set_volume(0.3)
-    mixer.music.play(-1)
     assert isinstance(engine, Engine)
     return engine
 
