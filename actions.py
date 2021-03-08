@@ -4,7 +4,15 @@ from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
 import exceptions
+from pygame import mixer
 import random
+
+mixer.init()
+footstep = mixer.Sound('stepdirt_1.wav')
+attack = mixer.Sound('Socapex - new_hits_5.wav')
+miss = mixer.Sound('swosh-20.flac')
+mixer.Sound.set_volume(attack,1.3)
+mixer.Sound.set_volume(miss,0.7)
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -164,11 +172,13 @@ class MeleeAction(ActionWithDirection):
                 f"{attack_desc} for {damage} hit points.", attack_color
             )
             target.fighter.hp -= damage
+            mixer.Channel(1).play(mixer.Sound(attack))
         else:
             self.engine.message_log.add_message(
                 f"{attack_desc} but barely damages him.", attack_color
             )
             target.fighter.hp -= 1
+            mixer.Channel(2).play(mixer.Sound(miss))
 
 
 class MovementAction(ActionWithDirection):
@@ -186,6 +196,7 @@ class MovementAction(ActionWithDirection):
             raise exceptions.Impossible("Something blocks me")
 
         self.entity.move(self.dx, self.dy)
+        mixer.Channel(0).play(mixer.Sound(footstep))
 
 
 class BumpAction(ActionWithDirection):
