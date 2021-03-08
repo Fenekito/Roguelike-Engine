@@ -1,3 +1,10 @@
 # Saved Games
 *.udsav
+*.txt
+*.wav
+*.mp3
+*.ogg
+*.flac
+dist
+build
 __pycache__
