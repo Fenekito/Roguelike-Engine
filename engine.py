@@ -10,7 +10,6 @@ import pickle
 import exceptions
 from message_log import MessageLog
 import render_functions
-from pygame import mixer
 
 if TYPE_CHECKING:
     from entity import Actor

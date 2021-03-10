@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Optional, Tuple, TYPE_CHECKING
+from sound_handler import SoundHandler
 
 import color
 import exceptions
@@ -9,6 +10,7 @@ import random
 if TYPE_CHECKING:
     from engine import Engine
     from entity import Actor, Entity, Item
+    from sound_handler import SoundHandler
 
 
 class Action:
@@ -31,7 +33,6 @@ class Action:
         This method must be overridden by Action subclasses.
         """
         raise NotImplementedError()
-
 
 class PickupAction(Action):
     """Pickup an item and add it to the inventory, if there is room for it."""
@@ -116,6 +117,7 @@ class TakeStairsAction(Action):
                 self.engine.message_log.add_message(
                     "You descend the staircase, you feel a chill on your spine"
                 )
+            SoundHandler.handling('moving')
         else:
             raise exceptions.Impossible("There are no stairs here.")
 
@@ -164,12 +166,12 @@ class MeleeAction(ActionWithDirection):
                 f"{attack_desc} for {damage} hit points.", attack_color
             )
             target.fighter.hp -= damage
+            SoundHandler.handling('Melee')
         else:
             self.engine.message_log.add_message(
                 f"{attack_desc} but barely damages him.", attack_color
             )
             target.fighter.hp -= 1
-
 
 class MovementAction(ActionWithDirection):
     def perform(self) -> None:
@@ -186,7 +188,7 @@ class MovementAction(ActionWithDirection):
             raise exceptions.Impossible("Something blocks me")
 
         self.entity.move(self.dx, self.dy)
-
+        SoundHandler.handling('moving')
 
 class BumpAction(ActionWithDirection):
     def perform(self) -> None:
