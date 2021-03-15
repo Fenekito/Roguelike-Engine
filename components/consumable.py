@@ -13,6 +13,7 @@ from input_handlers import (
     AreaRangedAttackHandler,
     SingleRangedAttackHandler,
 )
+from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
     from entity import Actor, Item
@@ -39,6 +40,40 @@ class Consumable(BaseComponent):
         if isinstance(inventory, components.inventory.Inventory):
             inventory.items.remove(entity)
 
+class ConfusionConsumable(Consumable):
+    def __init__(self, number_of_turns: int):
+        self.number_of_turns = number_of_turns
+
+    def get_action(self, consumer: Actor) -> SingleRangedAttackHandler:
+        self.engine.message_log.add_message(
+            "Select a target location.", color.needs_target
+        )
+        return SingleRangedAttackHandler(
+            self.engine,
+            callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
+        )
+
+    def activate(self, action: actions.ItemAction) -> None:
+        consumer = action.entity
+        target = action.target_actor
+
+        if not self.engine.game_map.visible[action.target_xy]:
+            raise Impossible("I can't target what I can't see.")
+        if not target:
+            raise Impossible("No one is close to the effective range")
+        if target is consumer:
+            raise Impossible("I'm not this dumb.")
+
+        self.engine.message_log.add_message(
+            f"The {target.name} has been blinded",
+            color.status_effect_applied,
+        )
+        target.ai = components.ai.ConfusedEnemy(
+            entity=target, previous_ai=target.ai, turns_remaining=self.number_of_turns,
+        )
+        self.consume()
+        SoundHandler.ItemHandling('toggle')
+
 class HealingConsumable(Consumable):
     def __init__(self, amount: int):
         self.amount = amount
@@ -52,6 +87,7 @@ class HealingConsumable(Consumable):
                 color.health_recovered,
             )
             self.consume()
+            SoundHandler.ItemHandling('heal')
         else:
             raise Impossible(f"Can't heal what's not hurt")
 
@@ -88,6 +124,50 @@ class GrenadeDamageConsumable(Consumable):
         if not targets_hit:
             raise Impossible("No one is close to the effective range")
         self.consume()
+        SoundHandler.ItemHandling('explosive')
+
+class GrenadeConfusionConsumable(Consumable):
+    """
+    The player is not affected sadly.
+    """
+
+    def __init__(self, number_of_turns: int, radius: int):
+        self.number_of_turns = number_of_turns
+        self.radius = radius
+
+    def get_action(self, consumer: Actor) -> AreaRangedAttackHandler:
+        self.engine.message_log.add_message(
+            "Select a target location.", color.needs_target
+        )
+        return AreaRangedAttackHandler(
+            self.engine,
+            radius=self.radius,
+            callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
+        )
+
+    def activate(self, action: actions.ItemAction) -> None:
+        target_xy = action.target_xy
+        consumer = action.entity
+
+        if not self.engine.game_map.visible[target_xy]:
+            raise Impossible("I can't target what I can't see.")
+
+        targets_hit = False
+        for actor in self.engine.game_map.actors:
+            if actor.distance(*target_xy) <= self.radius:
+                if not actor is consumer:
+                    self.engine.message_log.add_message(
+                        f"The {actor.name} is flashed",color.status_effect_applied,
+                    )
+                targets_hit = True
+                actor.ai = components.ai.ConfusedEnemy(
+                    entity=actor, previous_ai=actor.ai, turns_remaining=self.number_of_turns,
+                )
+
+        if not targets_hit:
+            raise Impossible("No one is close to the effective range")
+        self.consume()
+        SoundHandler.ItemHandling('explosive')
 
 class ThrowingBrickDamageConsumable(Consumable):
     def __init__(self, damage: int, maximum_range: int):
@@ -113,5 +193,6 @@ class ThrowingBrickDamageConsumable(Consumable):
             )
             target.fighter.take_damage(self.damage)
             self.consume()
+            SoundHandler.ItemHandling('throwable')
         else:
             raise Impossible("There's no one close enough to get bricked.")

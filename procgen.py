@@ -33,20 +33,22 @@ max_monsters_by_floor = [
 ]
 
 item_chances: Dict[int, List[Tuple[Entity, int]]] = {
-    0: [(entities_factory.bandage, 5)],
-    2: [(entities_factory.brick, 6)],
-    4: [(entities_factory.first_aid, 2), (entities_factory.BBat, 3)],
-    6: [(entities_factory.grenade, 1), (entities_factory.MShiftVest, 2)],
-    10: [(entities_factory.PoliceVest, 2), (entities_factory.Machete, 1)],
+    0: [(entities_factory.bandage, 20)],
+    2: [(entities_factory.brick, 12), (entities_factory.laser_pointer, 9)],
+    3: [(entities_factory.flashbang, 2), (entities_factory.MShiftVest, 4)],
+    4: [(entities_factory.first_aid, 4), (entities_factory.BBat, 6)],
+    5: [(entities_factory.ArmorSpikes, 6)],
+    6: [(entities_factory.grenade, 2), (entities_factory.ArmorPlate, 4), (entities_factory.ArmsEnhancer, 3)],
+    10: [(entities_factory.PoliceVest, 2), (entities_factory.Machete, 1), (entities_factory.RiotShield, 4)],
     12: [(entities_factory.MilitaryVest, 1)]
 }
 
 enemy_chances: Dict[int, List[Tuple[Entity, int]]] = {
-    0: [(entities_factory.decayed, 80)],
+    0: [(entities_factory.decayed, 50)],
     3: [(entities_factory.jockster, 22)],
     4: [(entities_factory.jockster, 40)],
-    5: [(entities_factory.minormind, 10)],
-    10: [(entities_factory.mastermind, 5)],
+    5: [(entities_factory.minormind, 5)],
+    10: [(entities_factory.mastermind, 2)],
 }
 
 def get_max_value_for_floor(

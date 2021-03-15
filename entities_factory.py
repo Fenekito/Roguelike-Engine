@@ -86,17 +86,25 @@ brick = Item(
     name= "Throwing Brick",
     consumable=consumable.ThrowingBrickDamageConsumable(damage=10, maximum_range=5),
 )
-"""laser_pointer = Item(
+laser_pointer = Item(
     char="~",
     color=(0,0,0),
     name="disposable pointer",
-    consumable=consumable.ConfusionConsumable(number_of_turns=5),
-)"""
+    consumable=consumable.ConfusionConsumable(number_of_turns=10),
+)
+
 grenade = Item(
     char="8",
     color=(255, 0, 0),
     name="Grenade",
     consumable=consumable.GrenadeDamageConsumable(damage=12, radius=3),
+)
+
+flashbang = Item(
+    char="8",
+    color=(255,255,255),
+    name="Smart Flashbang",
+    consumable=consumable.GrenadeConfusionConsumable(number_of_turns=8, radius=3)
 )
 
 rknife = Item(
@@ -109,6 +117,13 @@ BBat = Item(
 
 Machete = Item(
     char="|", color=(0, 191, 255), name="Machete", equippable=equippable.Machete()
+)
+
+RiotShield = Item(
+    char="|",
+    color=(135, 65, 16),
+    name="Riot Shield",
+    equippable=equippable.RiotShield(),
 )
 
 LJacket = Item(
@@ -129,12 +144,40 @@ PoliceVest = Item(
     char="{",
     color=(135, 65, 16),
     name="Police Vest",
-    equippable=equippable.PoliceVest,
+    equippable=equippable.PoliceVest(),
 )
 
 MilitaryVest = Item(
     char="=",
     color=(137, 67, 18),
     name="Military Vest",
-    equippable=equippable.MilitaryVest,
+    equippable=equippable.MilitaryVest(),
+)
+
+Kimono = Item(
+    char="^",
+    color=(125,125,125),
+    name="Kimono",
+    equippable=equippable.Kimono(),
+)
+
+ArmorPlate = Item(
+    char="=",
+    color=(0,0,0),
+    name="Armor Plates",
+    equippable=equippable.ArmorPlates(),
+)
+
+ArmorSpikes = Item(
+    char="<",
+    color=(0,0,0),
+    name="Armor Spikes",
+    equippable=equippable.ArmorSpikes(),
+)
+
+ArmsEnhancer = Item(
+    char="2",
+    color=(0, 208, 255),
+    name="Arms Enhancer",
+    equippable=equippable.ArmsEnhancer(),
 )

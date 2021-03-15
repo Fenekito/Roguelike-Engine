@@ -172,6 +172,7 @@ class MeleeAction(ActionWithDirection):
                 f"{attack_desc} but barely damages him.", attack_color
             )
             target.fighter.hp -= 1
+            SoundHandler.handling('miss')
 
 class MovementAction(ActionWithDirection):
     def perform(self) -> None:
