@@ -7,6 +7,7 @@ from tcod.console import Console
 
 from entity import Actor, Item
 import tile_types
+from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -127,6 +128,8 @@ class GameWorld:
         from procgen import generate_dungeon
 
         self.current_floor += 1
+
+        SoundHandler.BGMHandler(self.current_floor)
 
         self.engine.game_map = generate_dungeon(
             max_rooms=self.max_rooms,

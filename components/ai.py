@@ -113,3 +113,35 @@ class ConfusedEnemy(BaseAI):
             # The actor will either try to move or attack in the chosen random direction.
             # Its possible the actor will just bump into the wall, wasting a turn.
             return BumpAction(self.entity, direction_x, direction_y, ).perform()
+
+class PermConfusedEnemy(BaseAI):
+    """
+    A Permanent confused enemy will stumble around aimlessl.
+    If an actor occupies a tile it is randomly moving into, it will attack.
+    """
+
+    def __init__(self, entity: Actor):
+        super().__init__(entity)
+
+    def perform(self) -> None:
+        if self.engine.game_map.visible[self.entity.x, self.entity.y]:
+            direction_x, direction_y = random.choice(
+                [
+                    (-1, -1),  # Northwest
+                    (0, -1),  # North
+                    (1, -1),  # Northeast
+                    (-1, 0),  # West
+                    (1, 0),  # East
+                    (-1, 1),  # Southwest
+                    (0, 1),  # South
+                    (1, 1),  # Southeast
+                ]
+            )
+            self.engine.message_log.add_message(
+                f"The {self.entity.name} wanders aimlessly"
+            )
+
+        # The actor will either try to move or attack in the chosen random direction.
+        # Its possible the actor will just bump into the wall, wasting a turn.
+        if self.engine.game_map.visible[self.entity.x, self.entity.y]:
+            return BumpAction(self.entity, direction_x, direction_y, ).perform()

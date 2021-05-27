@@ -1,4 +1,4 @@
-from components.ai import HostileEnemy
+from components.ai import HostileEnemy, PermConfusedEnemy
 from components.fighter import Fighter
 from components.inventory import Inventory
 from components.level import Level
@@ -25,6 +25,17 @@ player = Actor(
     level=Level(level_up_base=300),
 )
 
+rusty = Actor(
+    char="R",
+    color=(255, 8, 10),
+    name="Rusty One",
+    equipment=Equipment(),
+    ai_cls=PermConfusedEnemy,
+    fighter=Fighter(hp=22, base_defense=1, base_power= random.randint(4, 7)),
+    inventory= Inventory(capacity=0),
+    level=Level(xp_given=35),
+)
+
 decayed = Actor(
     char="D",
     color=(255, 65, 7),
@@ -33,7 +44,7 @@ decayed = Actor(
     equipment=Equipment(),
     fighter=Fighter(hp=15, base_defense=0, base_power=random.randint(4,5)),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=35),
+    level=Level(xp_given=50),
     )
 mastermind = Actor(
     char="M",
@@ -61,9 +72,9 @@ jockster = Actor(
     name="Jockster",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=20, base_defense=2, base_power=random.randint(5, 8)),
+    fighter=Fighter(hp=18, base_defense=2, base_power=random.randint(5, 8)),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=100),
+    level=Level(xp_given=125),
 )
 
 bandage = Item(

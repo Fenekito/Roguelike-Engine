@@ -15,7 +15,6 @@ from engine import Engine
 import entities_factory
 import input_handlers
 from game_map import GameWorld
-from pygame import mixer
 
 # Load the background image and remove the alpha channel.
 background_image = tcod.image.load("menu_background.png")[:, :, :3]
@@ -26,9 +25,9 @@ def new_game() -> Engine:
     map_width = 80
     map_height = 43
 
-    room_max_size = 10
-    room_min_size = 6
-    max_rooms = 30
+    room_max_size = 14
+    room_min_size = 8
+    max_rooms = 32
 
     player = copy.deepcopy(entities_factory.player)
 
@@ -67,10 +66,6 @@ def load_game(filename: str) -> Engine:
     """Load an Engine instance from a file."""
     with open(filename, "rb") as f:
         engine = pickle.loads(lzma.decompress(f.read()))
-
-    mixer.music.load('Desolate Hallways.mp3')
-    mixer.music.set_volume(0.3)
-    mixer.music.play(-1)
     assert isinstance(engine, Engine)
     return engine
 
@@ -124,9 +119,6 @@ class MainMenu(input_handlers.BaseEventHandler):
                 traceback.print_exc()  # Print to stderr.
                 return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
         elif event.sym == tcod.event.K_n:
-            mixer.music.load('Desolate Hallways.mp3')
-            mixer.music.set_volume(0.3)
-            mixer.music.play(-1)
             return input_handlers.MainGameEventHandler(new_game())
 
         return None
