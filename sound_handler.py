@@ -1,13 +1,13 @@
 from pygame import mixer
 
 mixer.init()
-footstep = mixer.Sound('stepdirt_1.wav')
-attack = mixer.Sound('Socapex - new_hits_5.wav')
-miss = mixer.Sound('swosh-20.flac')
-heal = mixer.Sound('heal.wav')
-throwable = mixer.Sound('impact.wav')
-toggle = mixer.Sound('toggle.wav')
-explosion = mixer.Sound('rumble.flac')
+footstep = mixer.Sound('sfx/stepdirt_1.wav')
+attack = mixer.Sound('sfx/Socapex - new_hits_5.wav')
+miss = mixer.Sound('sfx/swosh-20.flac')
+heal = mixer.Sound('sfx/heal.wav')
+throwable = mixer.Sound('sfx/impact.wav')
+toggle = mixer.Sound('sfx/toggle.wav')
+explosion = mixer.Sound('sfx/rumble.flac')
 mixer.Sound.set_volume(attack, 1.3)
 mixer.Sound.set_volume(miss, 0.7)
 
@@ -34,11 +34,12 @@ class SoundHandler():
 
     def BGMHandler(level) -> None:
         if level < 4:
-            mixer.music.load('Desolate Hallways.mp3')
-            mixer.music.set_volume(0.3)
-            mixer.music.play()
+            if not mixer.music.get_busy():
+                mixer.music.load('music/Desolate Hallways.mp3')
+                mixer.music.set_volume(0.3)
+                mixer.music.play()
         else:
             mixer.music.unload()
             mixer.music.set_volume(0.3)
-            mixer.music.load('what we make from it.mp3')
+            mixer.music.load('music/what we make from it.mp3')
             mixer.music.play()

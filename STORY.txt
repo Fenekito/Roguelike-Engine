@@ -168,5 +168,10 @@ TABLE OF CONTENT
 
 FENEKITO - CODING, MUSIC
 
-EXTERNAL HELP:
-OPENGAMEART - SFX
+EXTERNAL:
+Heal SFX - https://opengameart.org/content/3-heal-spells
+Impact SFX - https://opengameart.org/content/wall-impact
+Miss SFX - https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes
+Hit SFX - https://opengameart.org/content/punches-hits-swords-and-squishes
+Explosion SFX - https://opengameart.org/content/rumbleexplosion
+

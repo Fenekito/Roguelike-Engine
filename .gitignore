@@ -1,10 +1,7 @@
 # Saved Games
 *.udsav
-*.txt
-*.wav
-*.mp3
-*.ogg
-*.flac
+#Story depends too much from game to game
+STORY.txt
 dist
 build
 __pycache__
