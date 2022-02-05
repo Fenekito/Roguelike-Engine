@@ -37,6 +37,22 @@ def render_bar(
         x=1, y=45, string=f"HP: {current_value}/{maximum_value}", fg=color.bar_text
     )
 
+def render_foodbar(
+    console: Console, current_value: int, maximum_value: int, total_width: int
+) -> None:
+    bar_width = int(float(current_value) / maximum_value * total_width)
+
+    console.draw_rect(x=0, y=46, width=20, height=1, ch=1, bg=color.food_bar_empty)
+
+    if bar_width > 0:
+        console.draw_rect(
+            x=0, y=46, width=bar_width, height=1, ch=1, bg=color.food_bar_filled
+        )
+
+    console.print(
+        x=1, y=46, string=f"STOMACH: {current_value}/{maximum_value}", fg=color.bar_text
+    )
+
 def render_dungeon_level(
     console: Console, dungeon_level: int, location: Tuple[int, int]
 ) -> None:
@@ -59,7 +75,7 @@ def render_dungeon_level(
     if dungeon_level == 7:
         console.print(x=x, y=y, string=f"Ruined City")
     if dungeon_level >= 9:
-        console.print(x=x, y=y, string=f"The deep")
+        console.print(x=x, y=y, string=f"The Deep")
 
 def render_names_at_mouse_location(
     console: Console, x: int, y: int, engine: Engine

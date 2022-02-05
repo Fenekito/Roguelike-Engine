@@ -13,6 +13,7 @@ from input_handlers import (
     AreaRangedAttackHandler,
     SingleRangedAttackHandler,
 )
+from AudioClip import AudioClip
 from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
@@ -72,7 +73,8 @@ class ConfusionConsumable(Consumable):
             entity=target, previous_ai=target.ai, turns_remaining=self.number_of_turns,
         )
         self.consume()
-        SoundHandler.ItemHandling('toggle')
+        clip = AudioClip('sfx/toggle.wav')
+        SoundHandler.play(clip)
 
 class HealingConsumable(Consumable):
     def __init__(self, amount: int):
@@ -87,9 +89,28 @@ class HealingConsumable(Consumable):
                 color.health_recovered,
             )
             self.consume()
-            SoundHandler.ItemHandling('heal')
+            clip = AudioClip('sfx/heal.wav')
+            SoundHandler.play(clip)
         else:
             raise Impossible(f"Can't heal what's not hurt")
+
+class FoodConsumable(Consumable):
+    def __init__(self, amount: int):
+        self.amount = amount
+
+    def activate(self, action: actions.ItemAction) -> None:
+        consumer = action.entity
+        amount_recovered = consumer.fighter.eat(self.amount)
+        if amount_recovered > 0:
+            self.engine.message_log.add_message(
+                f"You eat the {self.parent.name}, and fill your hunger by {amount_recovered}!",
+                color.health_recovered,
+            )
+            self.consume()
+            clip = AudioClip('sfx/heal.wav')
+            SoundHandler.play(clip)
+        else:
+            raise Impossible(f"I'm full")
 
 class GrenadeDamageConsumable(Consumable):
     def __init__(self, damage: int, radius: int):
@@ -124,7 +145,8 @@ class GrenadeDamageConsumable(Consumable):
         if not targets_hit:
             raise Impossible("No one is close to the effective range")
         self.consume()
-        SoundHandler.ItemHandling('explosive')
+        clip = AudioClip('sfx/rumble.flac')
+        SoundHandler.play(clip)
 
 class GrenadeConfusionConsumable(Consumable):
     """
@@ -167,7 +189,8 @@ class GrenadeConfusionConsumable(Consumable):
         if not targets_hit:
             raise Impossible("No one is close to the effective range")
         self.consume()
-        SoundHandler.ItemHandling('explosive')
+        clip = AudioClip('sfx/rumble.flac')
+        SoundHandler.play(clip)
 
 class ThrowingBrickDamageConsumable(Consumable):
     def __init__(self, damage: int, maximum_range: int):
@@ -193,6 +216,7 @@ class ThrowingBrickDamageConsumable(Consumable):
             )
             target.fighter.take_damage(self.damage)
             self.consume()
-            SoundHandler.ItemHandling('throwable')
+            clip = AudioClip('sfx/impact.wav')
+            SoundHandler.play(clip)
         else:
             raise Impossible("There's no one close enough to get bricked.")

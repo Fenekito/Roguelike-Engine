@@ -129,7 +129,14 @@ class GameWorld:
 
         self.current_floor += 1
 
-        SoundHandler.BGMHandler(self.current_floor)
+        musHandler = SoundHandler()
+
+        if not musHandler.isBusy():
+            musHandler.playBGM("music/Desolate Hallways.mp3")
+
+        if self.current_floor > 4:
+            if musHandler.isBusy():
+                musHandler.overrideBGM("music/what we make from it.mp3")
 
         self.engine.game_map = generate_dungeon(
             max_rooms=self.max_rooms,

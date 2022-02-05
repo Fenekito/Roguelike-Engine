@@ -30,62 +30,70 @@ class RustyKnife(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=2)
 
-
 class BaseballBat(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=4)
-
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=5)
 
 class Machete(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=6)
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=7)
 
+class  Axe(Equippable):
+    def __init__(self) -> None:
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=10)
 
 class LeatherJacket(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=1)
 
-
 class MakeshiftVest(Equippable):
-    def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=3)
-
-
-class PoliceVest(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=4)
 
-
-class MilitaryVest(Equippable):
+class PoliceVest(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=7)
 
+class MilitaryVest(Equippable):
+    def __init__(self) -> None:
+        super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=9)
 
 class Kimono(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=2, power_bonus=2)
 
-
 class MakeshiftShield(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=2, power_bonus=1)
 
-
 class RiotShield(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=4, power_bonus=1)
-
+        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=4, power_bonus=2)
 
 class ArmorSpikes(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ACCESSORY, defense_bonus=1, power_bonus=2)
 
-
 class ArmsEnhancer(Equippable):
     def __init__(self) -> None:
         super().__init__(equipment_type=EquipmentType.ACCESSORY, power_bonus=4)
 
-
 class ArmorPlates(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.ACCESSORY, defense_bonus=3)
+        super().__init__(equipment_type=EquipmentType.ACCESSORY, defense_bonus=4)
+
+class LeatherCap(Equippable):
+    def __init__(self) -> None:
+        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=1)
+
+class Bucket(Equippable):
+    def __init__(self) -> None:
+        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=2)
+
+class MakeshiftHelmet(Equippable):
+    def __init__(self) ->None:
+        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=4)
+
+class MilitaryHelmet(Equippable):
+    def __init__(self) ->None:
+        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=5)

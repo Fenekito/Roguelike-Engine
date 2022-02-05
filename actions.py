@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from typing import Optional, Tuple, TYPE_CHECKING
+
+from AudioClip import  AudioClip
 from sound_handler import SoundHandler
 
 import color
@@ -117,7 +119,8 @@ class TakeStairsAction(Action):
                 self.engine.message_log.add_message(
                     "You descend the staircase, you feel a chill on your spine"
                 )
-            SoundHandler.handling('moving')
+            clip = AudioClip('sfx/stepdirt_1.wav')
+            SoundHandler.play(clip)
         else:
             raise exceptions.Impossible("There are no stairs here.")
 
@@ -166,13 +169,15 @@ class MeleeAction(ActionWithDirection):
                 f"{attack_desc} for {damage} hit points.", attack_color
             )
             target.fighter.hp -= damage
-            SoundHandler.handling('Melee')
+            clip = AudioClip('sfx/Socapex - new_hits_5.wav')
+            SoundHandler.play(clip)
         else:
             self.engine.message_log.add_message(
                 f"{attack_desc} but barely damages him.", attack_color
             )
             target.fighter.hp -= 1
-            SoundHandler.handling('miss')
+            clip = AudioClip('sfx/swosh-20.flac')
+            SoundHandler.play(clip)
 
 class MovementAction(ActionWithDirection):
     def perform(self) -> None:
@@ -188,13 +193,17 @@ class MovementAction(ActionWithDirection):
             # Destination is blocked by an entity.
             raise exceptions.Impossible("Something blocks me")
 
+        if self.entity is self.engine.player:
+            self.engine.player.fighter.starve()
         self.entity.move(self.dx, self.dy)
-        SoundHandler.handling('moving')
+        clip = AudioClip('sfx/stepdirt_1.wav')
+        SoundHandler.play(clip)
 
 class BumpAction(ActionWithDirection):
     def perform(self) -> None:
         if self.target_actor:
+            if self.entity is self.engine.player:
+                self.engine.player.fighter.starve()
             return MeleeAction(self.entity, self.dx, self.dy).perform()
-
         else:
             return MovementAction(self.entity, self.dx, self.dy).perform()

@@ -99,6 +99,8 @@ class Actor(Entity):
         fighter: Fighter,
         inventory: Inventory,
         level: Level,
+        hunger: int = 0,
+        max_hunger: int = 0,
     ):
         super().__init__(
             x=x,

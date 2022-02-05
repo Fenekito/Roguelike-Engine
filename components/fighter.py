@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from sound_handler import SoundHandler
+from AudioClip import AudioClip
 
 import color
 from components.base_component import BaseComponent
@@ -13,11 +14,14 @@ if TYPE_CHECKING:
 class Fighter(BaseComponent):
     parent: Actor
 
-    def __init__(self, hp: int, base_defense: int, base_power: int):
+    def __init__(self, hp: int, base_defense: int, base_power: int, hunger: int, max_hunger : int):
         self.max_hp = hp
         self._hp = hp
         self.base_defense = base_defense
         self.base_power = base_power
+        self._hunger = hunger
+        self.max_hunger = max_hunger
+        self.hunger_moves = 15
 
     @property
     def hp(self) -> int:
@@ -28,7 +32,6 @@ class Fighter(BaseComponent):
         self._hp = max(0, min(value, self.max_hp))
         if self._hp == 0 and self.parent.ai:
             self.die()
-
     @property
     def defense(self) -> int:
         return self.base_defense + self.defense_bonus
@@ -51,11 +54,22 @@ class Fighter(BaseComponent):
         else:
             return 0
 
+    @property
+    def hunger(self) ->int:
+        return self._hunger
+
+    @hunger.setter
+    def hunger(self, value: int) -> None:
+        self._hunger = max(0, min(value, self.max_hunger))
+        if self._hunger == 0 and self.parent.ai:
+            self.starve()
+
     def die(self) -> None:
         if self.engine.player is self.parent:
             death_message = "You died!"
             death_message_color = color.player_die
-            SoundHandler.handling('die')
+            clip = AudioClip("sfx/swosh-20.flac")
+            SoundHandler.play(clip)
         else:
             death_message = f"{self.parent.name} is dead!"
             death_message_color = color.enemy_die
@@ -85,3 +99,30 @@ class Fighter(BaseComponent):
 
     def take_damage(self, amount: int) -> None:
         self.hp -= amount
+
+    def eat(self, amount: int) -> int:
+        if self.hunger == self.max_hunger:
+            return 0
+
+        new_hunger_value = self.hunger + amount
+
+        if new_hunger_value > self.max_hunger:
+            new_hunger_value = self.max_hunger
+
+        amount_recovered = new_hunger_value - self.hunger
+
+        self.hunger = new_hunger_value
+
+        return amount_recovered
+
+    def starve(self) -> None:
+        self.hunger_moves -= 1
+        if self.hunger_moves <= 0:
+            self.hunger -= 1
+            self.hunger_moves = 15
+
+        if self.engine.player is self.parent and self._hunger <= 0:
+            self.hp -= 1
+            self.engine.message_log.add_message("You lose 1 hp from starvation!")
+            if self._hunger == 0 and self.parent.ai and self._hp == 0:
+                self.die()

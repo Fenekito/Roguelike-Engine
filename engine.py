@@ -54,6 +54,13 @@ class Engine:
             total_width=20,
         )
 
+        render_functions.render_foodbar(
+            console=console,
+            current_value=self.player.fighter.hunger,
+            maximum_value=self.player.fighter.max_hunger,
+            total_width=20,
+        )
+
         render_functions.render_dungeon_level(
             console=console,
             dungeon_level=self.game_world.current_floor,

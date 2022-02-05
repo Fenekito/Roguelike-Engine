@@ -16,9 +16,10 @@ import entities_factory
 import input_handlers
 from game_map import GameWorld
 
+from sound_handler import SoundHandler
+
 # Load the background image and remove the alpha channel.
 background_image = tcod.image.load("menu_background.png")[:, :, :3]
-
 
 def new_game() -> Engine:
     """Return a brand new game session as an Engine instance."""
@@ -67,6 +68,12 @@ def load_game(filename: str) -> Engine:
     with open(filename, "rb") as f:
         engine = pickle.loads(lzma.decompress(f.read()))
     assert isinstance(engine, Engine)
+    curFloor = engine.game_world.current_floor
+    musHandler = SoundHandler()
+    if curFloor < 4:
+        musHandler.playBGM("music/Desolate Hallways.mp3")
+    else:
+        musHandler.playBGM("music/what we make from it.mp3")
     return engine
 
 class MainMenu(input_handlers.BaseEventHandler):

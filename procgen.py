@@ -18,10 +18,10 @@ if TYPE_CHECKING:
 max_items_by_floor = [
     (1, 2),
     (2, 3),
-    (3, 2),
-    (4, 2),
-    (5, 1),
-    (9, 3),
+    (3, 4),
+    (4, 3),
+    (5, 3),
+    (9, 1),
 ]
 
 max_monsters_by_floor = [
@@ -33,9 +33,9 @@ max_monsters_by_floor = [
 ]
 
 item_chances: Dict[int, List[Tuple[Entity, int]]] = {
-    0: [(entities_factory.bandage, 20)],
-    2: [(entities_factory.brick, 12), (entities_factory.laser_pointer, 9)],
-    3: [(entities_factory.flashbang, 2), (entities_factory.MShiftVest, 4)],
+    0: [(entities_factory.nugget, 50), (entities_factory.bandaid, 50)],
+    2: [(entities_factory.brick, 15), (entities_factory.laser_pointer, 10), (entities_factory.burguer, 20), (entities_factory.bandaid, 25), (entities_factory.nugget, 30)],
+    3: [(entities_factory.flashbang, 4), (entities_factory.MShiftVest, 6), (entities_factory.bandage, 15), (entities_factory.LCap, 25)],
     4: [(entities_factory.first_aid, 4), (entities_factory.BBat, 6)],
     5: [(entities_factory.ArmorSpikes, 6)],
     6: [(entities_factory.grenade, 2), (entities_factory.ArmorPlate, 4), (entities_factory.ArmsEnhancer, 3)],
