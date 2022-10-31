@@ -6,6 +6,7 @@ import actions
 import color
 import components.ai
 import components.inventory
+from AudioClip import AudioClip
 from components.base_component import BaseComponent
 from exceptions import Impossible
 from input_handlers import (
@@ -13,7 +14,6 @@ from input_handlers import (
     AreaRangedAttackHandler,
     SingleRangedAttackHandler,
 )
-from AudioClip import AudioClip
 from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
@@ -101,13 +101,14 @@ class FoodConsumable(Consumable):
     def activate(self, action: actions.ItemAction) -> None:
         consumer = action.entity
         amount_recovered = consumer.fighter.eat(self.amount)
+        consumer.fighter.hunger_moves = 25 #Makes it so the player has a few extra moves before losing hunger points
         if amount_recovered > 0:
             self.engine.message_log.add_message(
                 f"You eat the {self.parent.name}, and fill your hunger by {amount_recovered}!",
                 color.health_recovered,
             )
             self.consume()
-            clip = AudioClip('sfx/heal.wav')
+            clip = AudioClip('sfx/crunch.2.ogg')
             SoundHandler.play(clip)
         else:
             raise Impossible(f"I'm full")

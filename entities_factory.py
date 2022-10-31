@@ -1,11 +1,12 @@
+import random
+
+from components import consumable, equippable
 from components.ai import HostileEnemy, PermConfusedEnemy
+from components.equipment import Equipment
 from components.fighter import Fighter
 from components.inventory import Inventory
 from components.level import Level
-from components.equipment import Equipment
-from components import consumable, equippable
 from entity import Actor, Item
-import random
 
 f = open('NAME.txt')
 name = f.read()
@@ -27,13 +28,13 @@ player = Actor(
 
 rusty = Actor(
     char="R",
-    color=(255, 8, 10),
+    color=(255, 65, 7),
     name="Rusty One",
     equipment=Equipment(),
     ai_cls=PermConfusedEnemy,
     fighter=Fighter(hp=22, base_defense=1, base_power= random.randint(4, 7), max_hunger=1000, hunger=1000),
     inventory= Inventory(capacity=0),
-    level=Level(xp_given=35),
+    level=Level(xp_given=50),
 )
 
 brknRobot = Actor(
@@ -44,7 +45,7 @@ brknRobot = Actor(
     ai_cls=PermConfusedEnemy,
     fighter=Fighter(hp=30, base_defense=3, base_power=random.randint(4, 10), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=175),
+    level=Level(xp_given=200),
 )
 
 DrillRobot = Actor(
@@ -55,10 +56,10 @@ DrillRobot = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=40, base_defense=5, base_power=random.randint(7, 12), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=225),
+    level=Level(xp_given=250),
 )
 
-Abomnation = Actor(
+Abomination = Actor(
     char="A",
     color=(0,0,0),
     name="The Abomination",
@@ -71,23 +72,24 @@ Abomnation = Actor(
 
 experiment = Actor(
     char="E",
-    color=(45, 90, 0),
+    color=(0, 125, 0),
+    name=("Experiment"),
     equipment=Equipment(),
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=22, base_defense=2, base_power=random.randint(6, 9), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=150)
+    level=Level(xp_given=200)
 )
 
 decayed = Actor(
     char="D",
-    color=(255, 65, 7),
+    color=(0, 125, 0),
     name="Decayed",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
     fighter=Fighter(hp=15, base_defense=0, base_power=random.randint(4,5), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=50),
+    level=Level(xp_given=75),
 )
 
 lostHmn = Actor(
@@ -98,7 +100,7 @@ lostHmn = Actor(
     equipment=Equipment(),
     fighter=Fighter(hp=15, base_defense=2, base_power=random.randint(4, 6), max_hunger=1000, hunger=1000),
     inventory= Inventory(capacity=0),
-    level=Level(xp_given=75)
+    level=Level(xp_given=100)
 )
 
 CorruptHuman = Actor(
@@ -109,7 +111,7 @@ CorruptHuman = Actor(
     equipment=Equipment(),
     fighter=Fighter(hp=20, base_defense=1, base_power=random.randint(6, 7), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=100)
+    level=Level(xp_given=125)
 )
 
 mastermind = Actor(
@@ -120,8 +122,9 @@ mastermind = Actor(
     equipment=Equipment(),
     fighter=Fighter(hp=66, base_defense=12, base_power=random.randint(22, 48), max_hunger=1000, hunger=1000),
     inventory = Inventory(capacity=0),
-    level=Level(xp_given=1500),
+    level=Level(xp_given=2500),
 )
+
 minormind = Actor(
     char="m",
     color=(0,255,255),
@@ -130,22 +133,22 @@ minormind = Actor(
     equipment=Equipment(),
     fighter=Fighter(hp=44, base_defense=5, base_power=random.randint(14, 20), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=500)
+    level=Level(xp_given=1000)
 )
 jockster = Actor(
-    char="J",
-    color=(78, 81, 255),
-    name="Jockster",
+    char="M",
+    color=(0, 125, 0),
+    name="Mutated",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
     fighter=Fighter(hp=18, base_defense=2, base_power=random.randint(5, 8), max_hunger=1000, hunger=1000),
     inventory=Inventory(capacity=0),
-    level=Level(xp_given=125),
+    level=Level(xp_given=150),
 )
 
 bandage = Item(
     char="#",
-    color=(127, 0, 255),
+    color=(255,0,0),
     name="Bandage",
     consumable=consumable.HealingConsumable(amount=10),
 )
@@ -167,20 +170,20 @@ nugget = Item(
 noodles = Item(
     char="~",
     color=(255,125,0),
-    name="Heated instant Noodles",
+    name="instant Noodles",
     consumable=consumable.FoodConsumable(amount=15)
 )
 
 cCake = Item(
     char="C",
-    color=(125,55,5),
+    color=(255,125,0),
     name="Chocolate Cake",
     consumable=consumable.FoodConsumable(amount=45)
 )
 
-Pie = Item(
+pie = Item(
     char="P",
-    color=(255,125,5),
+    color=(255,125,0),
     name="Apple Pie",
     consumable=consumable.FoodConsumable(amount=25)
 )
@@ -195,7 +198,7 @@ bandaid = Item(
 first_aid = Item(
     char="+",
     color=(255,0,0),
-    name= "first-aid",
+    name= "First-aid",
     consumable=consumable.HealingConsumable(amount=30),
 )
 
@@ -209,7 +212,7 @@ brick = Item(
 laser_pointer = Item(
     char="~",
     color=(0,0,0),
-    name="disposable pointer",
+    name="Disposable pointer",
     consumable=consumable.ConfusionConsumable(number_of_turns=10),
 )
 
@@ -222,7 +225,7 @@ grenade = Item(
 
 flashbang = Item(
     char="8",
-    color=(255,255,255),
+    color=(125,125,125),
     name="Smart Flashbang",
     consumable=consumable.GrenadeConfusionConsumable(number_of_turns=8, radius=3)
 )
@@ -242,47 +245,64 @@ BBat = Item(
 )
 
 Machete = Item(
-    char="|", color=(0, 191, 255), name="Machete", equippable=equippable.Machete()
+    char="|",
+    color=(0, 191, 255),
+    name="Machete",
+    equippable=equippable.Machete()
+)
+
+Axe = Item(
+    char="F",
+    color=(0, 191, 255),
+    name="Fire Axe",
+    equippable=equippable.Axe()
+)
+
+MShiftShield = Item(
+    char="(",
+    color=(135, 65, 16),
+    name="Makeshift Shield",
+    equippable=equippable.MakeshiftShield(),
 )
 
 RiotShield = Item(
-    char="|",
+    char="[",
     color=(135, 65, 16),
     name="Riot Shield",
     equippable=equippable.RiotShield(),
 )
 
 LJacket = Item(
-    char="(",
+    char=")",
     color=(139, 69, 19),
     name="Leather Jacket",
     equippable=equippable.LeatherJacket(),
 )
 
 MShiftVest = Item(
-    char="[",
+    char="]",
     color=(139, 69, 19),
     name="Makeshift Vest",
     equippable=equippable.MakeshiftVest(),
 )
 
 PoliceVest = Item(
-    char="{",
-    color=(135, 65, 16),
+    char="}",
+    color=(130, 60, 15),
     name="Police Vest",
     equippable=equippable.PoliceVest(),
 )
 
 MilitaryVest = Item(
     char="=",
-    color=(0, 90, 0),
+    color=(130, 60, 15),
     name="Military Vest",
     equippable=equippable.MilitaryVest(),
 )
 
 Kimono = Item(
     char="^",
-    color=(125,125,125),
+    color=(130, 60, 15),
     name="Kimono",
     equippable=equippable.Kimono(),
 )
@@ -303,7 +323,7 @@ ArmorSpikes = Item(
 
 ArmsEnhancer = Item(
     char="2",
-    color=(0, 208, 255),
+    color=(0,0,0),
     name="Arms Enhancer",
     equippable=equippable.ArmsEnhancer(),
 )
@@ -317,7 +337,7 @@ LCap = Item(
 
 Bucket = Item(
     char="b",
-    color=(150,150,150),
+    color=(139, 69, 19),
     name="Bucket",
     equippable=equippable.Bucket()
 )
@@ -331,7 +351,7 @@ MShiftHelmet = Item(
 
 MilitaryHelmet = Item(
     char="C",
-    color=(0, 90, 0),
+    color=(139, 69, 19),
     name="Military Helmet",
     equippable=equippable.MilitaryHelmet()
 )

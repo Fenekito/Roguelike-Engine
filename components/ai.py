@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 from typing import List, Optional, Tuple, TYPE_CHECKING
+
 import numpy as np  # type: ignore
 import tcod
 

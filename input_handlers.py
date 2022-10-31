@@ -1,19 +1,19 @@
 from __future__ import annotations
 
+import os
 from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
 
-import os
 import tcod
 
 import actions
+import color
+import exceptions
 from actions import (
     Action,
     BumpAction,
     PickupAction,
     WaitAction,
 )
-import color
-import exceptions
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -542,6 +542,10 @@ class MainGameEventHandler(EventHandler):
             return CharacterScreenEventHandler(self.engine)
         elif key == tcod.event.K_SLASH:
             return LookHandler(self.engine)
+
+        elif key == tcod.event.K_r:
+            player.fighter.rest()
+            action = WaitAction(player)
 
         # No valid key was pressed
         return action

@@ -10,3 +10,6 @@ class AudioClip:
 
     def getClip(self):
         return self.clip
+
+    def setVolume(self, volume:float) ->None:
+        self.clip.set_volume(volume)

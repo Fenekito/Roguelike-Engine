@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import math
 from typing import TYPE_CHECKING
-from sound_handler import SoundHandler
-from AudioClip import AudioClip
 
 import color
+from AudioClip import AudioClip
 from components.base_component import BaseComponent
 from render_order import RenderOrder
+from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
     from entity import Actor
@@ -22,6 +23,8 @@ class Fighter(BaseComponent):
         self._hunger = hunger
         self.max_hunger = max_hunger
         self.hunger_moves = 15
+        self.debuff_moves = 0
+        self._debuff = math.floor(self.base_defense / 2)
 
     @property
     def hp(self) -> int:
@@ -34,7 +37,10 @@ class Fighter(BaseComponent):
             self.die()
     @property
     def defense(self) -> int:
-        return self.base_defense + self.defense_bonus
+        if self.debuff_moves > 0:
+            return (self.base_defense + self.defense_bonus) - self.debuff
+        else:
+            return self.base_defense + self.defense_bonus
 
     @property
     def power(self) -> int:
@@ -63,6 +69,14 @@ class Fighter(BaseComponent):
         self._hunger = max(0, min(value, self.max_hunger))
         if self._hunger == 0 and self.parent.ai:
             self.starve()
+
+    @property
+    def debuff(self) -> int:
+        return self._debuff
+
+    @debuff.setter
+    def debuff(self, value : int) -> None:
+        self._debuff = max(0, min(value, math.floor(self.base_defense / 2)))
 
     def die(self) -> None:
         if self.engine.player is self.parent:
@@ -115,14 +129,34 @@ class Fighter(BaseComponent):
 
         return amount_recovered
 
+    def rest(self) -> None:
+        if self.hunger >= 50:
+            self.engine.message_log.add_message("You rest a little, lowering your defenses for a while")
+            self.hunger -= 25
+            self.hp = self.max_hp
+            self.debuff_moves = 5
+
     def starve(self) -> None:
         self.hunger_moves -= 1
+        self.debuff_moves -= 1
         if self.hunger_moves <= 0:
-            self.hunger -= 1
+            if self.hp < self.max_hp and self.hunger > 65:
+                self.hunger -= 2
+                self.engine.message_log.add_message(f"Your filled Stomach helped you recover from your wounds", color.health_recovered)
+            else:
+                self.hunger -= 1
             self.hunger_moves = 15
+
+            """Passive Healing"""
+            if self.hunger > 90:
+                self.hp += 3
+            elif self.hunger > 80:
+                self.hp += 2
+            elif self.hunger > 65:
+                self.hp += 1
 
         if self.engine.player is self.parent and self._hunger <= 0:
             self.hp -= 1
-            self.engine.message_log.add_message("You lose 1 hp from starvation!")
+            self.engine.message_log.add_message(f"You lose 1 hp from starvation!")
             if self._hunger == 0 and self.parent.ai and self._hp == 0:
                 self.die()

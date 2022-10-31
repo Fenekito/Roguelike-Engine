@@ -1,9 +1,10 @@
-from typing import Iterable, List, Reversible, Tuple
 import textwrap
+from typing import Iterable, List, Reversible, Tuple
 
 import tcod
 
 import color
+
 
 class Message:
     def __init__(self, text: str, fg: Tuple[int, int, int]):

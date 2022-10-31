@@ -1,19 +1,16 @@
 from __future__ import annotations
 
+import random
 from typing import Optional, Tuple, TYPE_CHECKING
-
-from AudioClip import  AudioClip
-from sound_handler import SoundHandler
 
 import color
 import exceptions
-import random
+from AudioClip import AudioClip
+from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
     from engine import Engine
     from entity import Actor, Entity, Item
-    from sound_handler import SoundHandler
-
 
 class Action:
     def __init__(self, entity: Actor) -> None:
@@ -60,7 +57,6 @@ class PickupAction(Action):
                 return
 
         raise exceptions.Impossible("There is nothing here to pick up.")
-
 
 class ItemAction(Action):
     def __init__(
@@ -194,10 +190,16 @@ class MovementAction(ActionWithDirection):
             raise exceptions.Impossible("Something blocks me")
 
         if self.entity is self.engine.player:
+            clip = AudioClip("sfx/stepdirt_1.wav")
+            SoundHandler.playSeamless(clip, 7)
+            clip.setVolume(0.5)
             self.engine.player.fighter.starve()
+        else:
+            clip = AudioClip("sfx/stepdirt_1.wav")
+            SoundHandler.play(clip)
+            clip.setVolume(0.4)
+
         self.entity.move(self.dx, self.dy)
-        clip = AudioClip('sfx/stepdirt_1.wav')
-        SoundHandler.play(clip)
 
 class BumpAction(ActionWithDirection):
     def perform(self) -> None:

@@ -5,8 +5,8 @@ from typing import Iterable, Iterator, Optional, TYPE_CHECKING
 import numpy as np  # type: ignore
 from tcod.console import Console
 
-from entity import Actor, Item
 import tile_types
+from entity import Actor, Item
 from sound_handler import SoundHandler
 
 if TYPE_CHECKING:
@@ -131,12 +131,10 @@ class GameWorld:
 
         musHandler = SoundHandler()
 
-        if not musHandler.isBusy():
-            musHandler.playBGM("music/Desolate Hallways.mp3")
+        musHandler.playBGM("music/Desolate Hallways.mp3", False)
 
-        if self.current_floor > 4:
-            if musHandler.isBusy():
-                musHandler.overrideBGM("music/what we make from it.mp3")
+        if self.current_floor == 4:
+            musHandler.playBGM("music/what we make from it.mp3", True)
 
         self.engine.game_map = generate_dungeon(
             max_rooms=self.max_rooms,

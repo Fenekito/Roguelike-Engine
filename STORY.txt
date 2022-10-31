@@ -1,13 +1,13 @@
 #######################################
-#				      #
-#				      #
-#	|-----------------|	      #
-#	|     !STORY	  |	      #
-#	|      TIME!	  |           #
-#	|-----------------|	      #
-#				      #
-#				      #
-#				      #
+#				      	  #
+#				      	  #
+#	|-----------------|	        #
+#	|     !STORY	|	        #
+#	|      TIME!	|             #
+#	|-----------------|	        #
+#				      	  #
+#				      	  #
+#				      	  #
 #######################################
 
 #######################################
@@ -27,7 +27,7 @@ TABLE OF CONTENT
 |A TEST SUBJECT HAD ESCAPED BUT WAS SOON|
 |CONTAINED, THE SUBJECT 0 WAS DEEMED TOO|
 |VOLATILE TO CONTINUE TESTING, SO DISPO-|
-|SING OF HIS BODY WAS WHAT WAS THOUGH TO|
+|SING OF HIS BODY WAS WHAT WAS DEEMED TO|
 |BE THE RIGHT CHOICE. DURING THE PROCESS|
 |THE SUBJECT BEGAN RAPIDLY SPREADING A  |
 |GAS SUBSTANCE THAT CONTAMINATED ALL OF |
@@ -41,35 +41,31 @@ TABLE OF CONTENT
 #########################################
 
 ---------------CREATURES-----------------
-				 |HOSTIL|
-1 - THE PLAYER:		         | N/Y	|
- ONE OF THE REFUGEES		 |	|
- JUST TRYING TO SURVIVE		 |	|
-				 |	|
-2 - DECAYED:			 |  Y	|
- A RECENTLY TRANSFORMED LIFEFORM |	|
- STILL WEAK AND IS NOT AS MUTATED|xxxxxx|
-				 |	|
-3 - JOCKSTER:			 |  Y	|
- HALF LIFEFORM HALF HUMAN	 |	|
- AS IF STUCK ON BOTH WORLDS	 |	|
- GENERALLY ALONE OR WITH DECAYEDS|xxxxxx|
-				 |	|
-4 - MASTERMIND:			 |  Y	|
- ONE OF THE FINAL STAGES OF THE  |	|
- MAIN LIFEFORM BRANCH. HIGHLY	 |	|
- DANGEROUS AND SHOULD BE AVOIDED |	|
- AT ALL COSTS.			 |	|
- CONFRONT WILL MOST LIKELY END	 |	|
- WITH YOUR DEATH		 |xxxxxx|
-				 |	|
-5 - MINORMIND:			 |  Y	|
- BEFORE BECOMING A MASTERMIND	 |	|
- THE LIFEFORM GOES THROUGH THE   |	|
- MINORMIND PHASE, IT'S A REALLY  |	|
- DANGEROUS CREATURE AND REPORTS  |	|
- SAY THAT IT CAN BE MORE AGGRES- |	|
- SIVE THAN A MASTERMIND.	 |xxxxxx|
+				 	|HOSTILE|
+1 - THE PLAYER:		       | N/Y |
+ ONE OF THE REFUGEES		 |	 |
+ JUST TRYING TO SURVIVE		 |	 |
+				 	 |	 |
+2 - DECAYED:			 |  Y	 |
+ A RECENTLY TRANSFORMED LIFEFOR|	 |
+ STILL WEAK AND IS NOT AS MUTAT|xxxxx|
+				 	 |	 |
+3 - JOCKSTER:			 |  Y	 |
+ HALF LIFEFORM HALF HUMAN	 |	 |
+ AS IF STUCK ON BOTH WORLDS	 |	 |
+ GENERALLY ALONE.			 |xxxxx|
+				 	 |	 |
+4 - MASTERMIND:			 |  Y	 |
+ ONE OF THE FINAL STAGES OF THE|	 |
+ MAIN LIFEFORM BRANCH. ONE OF  |	 |
+ THE MOST DEADLY OF LIFEFORMS. |	 |
+ CONFRONT WILL MOST LIKELY END |	 |
+ IN DEATH.		 		 |xxxxx|
+				 	 |	 |
+5 - MINORMIND:			 |  Y	 |
+ BEFORE BECOMING A MASTERMIND	 |	 |
+ THE LIFEFORM GOES THROUGH THE |	 |
+ MINORMIND PHASE.			 |xxxxx|
 
 
 ----------------ITEMS--------------------
@@ -160,8 +156,8 @@ TABLE OF CONTENT
  REALLY WELL.
 
 18 - ARMS ENHANCER:
- THEY ARE FROM A EXOSKELETON PROTO-
- TYPE, THEY ENHANCE THE STRENGTH
+ FROM A EXOSKELETON PROTO-TYPE.
+ THEY ENHANCE THE STRENGTH
  OF YOUR ARMS TO A HIGH DEGREE.
 
 ----------------CREDITS------------------
@@ -174,4 +170,4 @@ Impact SFX - https://opengameart.org/content/wall-impact
 Miss SFX - https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes
 Hit SFX - https://opengameart.org/content/punches-hits-swords-and-squishes
 Explosion SFX - https://opengameart.org/content/rumbleexplosion
-
+Eating SFX - https://opengameart.org/content/7-eating-crunches

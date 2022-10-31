@@ -36,11 +36,15 @@ class BaseballBat(Equippable):
 
 class Machete(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=7)
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=9)
 
 class  Axe(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=10)
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=12)
+
+class Claymore(Equippable):
+    def __init__(self) -> None:
+        super().__init__(equipment_type=EquipmentType.WEAPON, power_bonus=20)
 
 class LeatherJacket(Equippable):
     def __init__(self) -> None:
@@ -56,7 +60,7 @@ class PoliceVest(Equippable):
 
 class MilitaryVest(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=9)
+        super().__init__(equipment_type=EquipmentType.ARMOR, defense_bonus=10)
 
 class Kimono(Equippable):
     def __init__(self) -> None:
@@ -64,11 +68,11 @@ class Kimono(Equippable):
 
 class MakeshiftShield(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=2, power_bonus=1)
+        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=3, power_bonus=1)
 
 class RiotShield(Equippable):
     def __init__(self) -> None:
-        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=4, power_bonus=2)
+        super().__init__(equipment_type=EquipmentType.WEAPON, defense_bonus=5, power_bonus=2)
 
 class ArmorSpikes(Equippable):
     def __init__(self) -> None:
@@ -96,4 +100,4 @@ class MakeshiftHelmet(Equippable):
 
 class MilitaryHelmet(Equippable):
     def __init__(self) ->None:
-        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=5)
+        super().__init__(equipment_type=EquipmentType.HAT, defense_bonus=6)

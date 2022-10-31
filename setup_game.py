@@ -2,20 +2,18 @@
 from __future__ import annotations
 
 import copy
+import lzma
+import pickle
+import traceback
 from typing import Optional
 
 import tcod
 
-import copy
-import lzma
-import pickle
-import traceback
 import color
-from engine import Engine
 import entities_factory
 import input_handlers
+from engine import Engine
 from game_map import GameWorld
-
 from sound_handler import SoundHandler
 
 # Load the background image and remove the alpha channel.
@@ -71,9 +69,9 @@ def load_game(filename: str) -> Engine:
     curFloor = engine.game_world.current_floor
     musHandler = SoundHandler()
     if curFloor < 4:
-        musHandler.playBGM("music/Desolate Hallways.mp3")
+        musHandler.playBGM("music/Desolate Hallways.mp3", False)
     else:
-        musHandler.playBGM("music/what we make from it.mp3")
+        musHandler.playBGM("music/what we make from it.mp3", True)
     return engine
 
 class MainMenu(input_handlers.BaseEventHandler):
